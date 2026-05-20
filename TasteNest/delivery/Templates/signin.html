@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Sign In</title>
+
+</head>
+<body>
+
+    <h2>SIGN IN below:</h2>
+        <form action="{% url 'signin' %}" method="POST">
+        {% csrf_token %}
+
+    <form method="post">
+
+        <label>Username</label>
+        <input type="text" name="username">
+        <br><br>
+
+        <label>Password</label>
+        <input type="password" name="password">
+        <br><br>
+
+        <button type="submit">SIGN IN</button>
+
+    </form>
+
+</body>
+</html>
