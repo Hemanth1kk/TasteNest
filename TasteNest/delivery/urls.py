@@ -22,4 +22,20 @@ urlpatterns = [
     path('show_cart/<str:username>', views.show_cart, name='show_cart'), 
     path('checkout/<str:username>/', views.checkout, name='checkout'),
     path('orders/<str:username>/', views.orders, name='orders'),
+   path(
+    'increase_quantity/<int:cart_item_id>/<str:username>/',
+    views.increase_quantity,
+    name='increase_quantity'
+),
+
+path(
+    'decrease_quantity/<int:cart_item_id>/<str:username>/',
+    views.decrease_quantity,
+    name='decrease_quantity'
+),
+path(
+    'customer_home/<str:username>/',
+    views.customer_home,
+    name='customer_home'
+),
 ]

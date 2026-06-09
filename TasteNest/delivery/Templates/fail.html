@@ -4,11 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fail Page</title>
-        <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Login Failed</title>
 
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <h1>Login Failed!!!</h1>
+
+<div class="fail-container">
+
+    <div class="fail-card">
+
+        <div class="fail-icon">
+            ⚠️
+        </div>
+
+        <h1>Login Failed</h1>
+
+        <p>
+            Invalid username or password.<br>
+            Please try again.
+        </p>
+
+        <a href="{% url 'open_signin' %}" class="retry-btn">
+            Try Again
+        </a>
+
+    </div>
+
+</div>
+
 </body>
 </html>

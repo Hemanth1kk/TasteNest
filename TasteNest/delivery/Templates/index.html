@@ -1,18 +1,75 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>TasteNest</title>
+
     <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
-<body>
-    <h1>TasteNest - Where you can find best food</h1>
-    <br>
-    <a href="open_signup">Sign Up</a>
-    <br>
-    <a href="open_signin">Sign In</a>
-    <br>
+
+
+<body class="home-page">
+
+<div class="container">
+
+    <h1 class="logo">
+        Taste<span>Nest</span>
+    </h1>
+
+    <p class="tagline">
+    Every Meal, A Memorable Experience
+    </p>
+    <div class="cards">
+
+        <!-- Sign Up -->
+
+        <div class="login-card">
+
+            <div class="circle">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+
+            <h2>Sign Up</h2>
+
+            <p>Create your account</p>
+
+            <a href="{% url 'open_signup' %}" class="btn">
+                Sign Up
+            </a>
+
+        </div>
+
+        <!-- Sign In -->
+
+        <div class="login-card">
+
+            <div class="circle">
+                <i class="fa-solid fa-right-to-bracket"></i>
+            </div>
+
+            <h2>Sign In</h2>
+
+            <p>Welcome Back!</p>
+
+            <a href="{% url 'open_signin' %}" class="btn">
+                Sign In
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
 </body>
+
 </html>

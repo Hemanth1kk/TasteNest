@@ -23,11 +23,35 @@ class Item(models.Model):
     vegeterian = models.BooleanField(default=False)
     picture = models.URLField(max_length = 400, default='https://www.indiafilings.com/learn/wp-content/uploads/2024/08/How-to-Start-Food-Business.jpg')
 
-
-
 class Cart(models.Model):
-    customer = models.ForeignKey(Customer, on_delete = models.CASCADE, related_name = "cart")
-    items = models.ManyToManyField("Item", related_name = "carts")
+    customer = models.ForeignKey(
+        Customer,
+        on_delete=models.CASCADE,
+        related_name="cart"
+    )
 
     def total_price(self):
-        return sum(item.price for item in self.items.all())
+        total = 0
+
+        for cart_item in self.cartitem_set.all():
+            total += cart_item.item.price * cart_item.quantity
+
+        return total
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(
+        Cart,
+        on_delete=models.CASCADE
+    )
+
+    item = models.ForeignKey(
+        Item,
+        on_delete=models.CASCADE
+    )
+
+    quantity = models.IntegerField(default=1)
+
+    @property
+    def subtotal(self):
+        return self.item.price * self.quantity

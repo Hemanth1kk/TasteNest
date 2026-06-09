@@ -4,39 +4,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>My Cart</title>
 
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
+
 <body>
-    Hi {{username}} here are you items
-    <!-- show current menu -->
-    <table border="1">
+
+<div class="cart-container">
+
+    <div class="cart-header">
+
+        <h1 class="welcome">
+            Welcome {{ username }} 👋
+        </h1>
+
+        <p class="subtitle">
+            Here are your selected items
+        </p>
+
+    </div>
+
+    <table class="cart-table">
+
         <thead>
             <tr>
                 <th>Item Image</th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Price</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
             </tr>
         </thead>
+
         <tbody>
-            {%  for item in itemList %}
-                <tr>
-                    <td>
-                        <img src="{{ item.picture }}">
-                    </td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.price }}</td>
-                </tr>
-            {% endfor %}
+
+        {% for cart_item in cart_items %}
+
+            <tr>
+
+                <td>
+                    <img src="{{ cart_item.item.picture }}" class="cart-img">
+                </td>
+
+                <td>
+                    {{ cart_item.item.name }}
+                </td>
+
+                <td>
+                    {{ cart_item.item.description }}
+                </td>
+
+                <td>
+
+                    <div class="quantity-box">
+
+                        <a href="{% url 'decrease_quantity' cart_item.id username %}" class="qty-btn">
+                            -
+                        </a>
+
+                        <span class="qty-number">
+                            {{ cart_item.quantity }}
+                        </span>
+
+                        <a href="{% url 'increase_quantity' cart_item.id username %}" class="qty-btn">
+                            +
+                        </a>
+
+                    </div>
+
+                </td>
+
+                <td class="price">
+                    ₹{{ cart_item.item.price }}
+                </td>
+
+                <td class="price">
+                    ₹{{ cart_item.subtotal }}
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
         </tbody>
-        <h2>Total price : {{total_price}}</h2>
-        
-        <form action="{% url 'checkout' username %}">
-            <input type="submit" value="CHECK OUT" />
-        </form>
+
     </table>
+
+    <!-- Go To Menu Button -->
+
+    <div style="display:flex; justify-content:flex-end; margin-top:20px;">
+
+        <button
+            onclick="history.back()"
+            style="
+                padding:12px 30px;
+                border:none;
+                border-radius:30px;
+                background:linear-gradient(45deg,#ff9800,#ff5e00);
+                color:white;
+                font-size:18px;
+                font-weight:bold;
+                cursor:pointer;
+            ">
+
+            ← Go To Menu
+
+        </button>
+
+    </div>
+
+    <div class="checkout-section">
+
+        <h2 class="total-price">
+            Total Price : ₹{{ total_price }}
+        </h2>
+
+        <form action="{% url 'checkout' username %}">
+
+            <button class="checkout-btn">
+                Proceed To Checkout
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
 </body>
 </html>

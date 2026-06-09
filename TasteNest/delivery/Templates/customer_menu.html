@@ -1,48 +1,98 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-        <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Menu Page</title>
 
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <h3>Welcome {{username}}!</h3>
 
-    <a href="{% url 'show_cart' username %}" >Go to cart</a>
+<div class="menu-container">
 
-    <!-- show current menu -->
-    <table border="1">
+    <div class="menu-header">
+
+        <h1 class="welcome">
+            Welcome {{ username }} 👋
+        </h1>
+
+        <p class="subtitle">
+            Explore our delicious menu and add your favorites to the cart
+        </p>
+
+        <a href="{% url 'show_cart' username %}" class="cart-btn">
+            🛒 Go To Cart
+        </a>
+
+    </div>
+
+    <table class="menu-table">
+
         <thead>
             <tr>
-                <th>Item name</th>
+                <th>Item Name</th>
                 <th>Picture</th>
                 <th>Description</th>
                 <th>Price</th>
-                <th>Is veg?</th>
+                <th>Veg / Non-Veg</th>
                 <th>Operation</th>
             </tr>
         </thead>
+
         <tbody>
-            {%  for item in itemList %}
-                <tr>
-                    <td>{{ item.name }}</td>
-                    <td>
-                        <img src="{{ item.picture }}">
-                    </td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.price }}</td>
-                    <td>{{ item.vegeterian }}</td>
-                    <td>
-                        <a href="{% url 'add_to_cart' item.id username %}">
-                            Add to cart
-                        </a>
-                    </td>
-                </tr>
+
+            {% for item in itemList %}
+
+            <tr>
+
+                <td>{{ item.name }}</td>
+
+                <td>
+                    <img src="{{ item.picture }}" class="item-img">
+                </td>
+
+                <td>{{ item.description }}</td>
+
+                <td class="price">
+                    ₹{{ item.price }}
+                </td>
+
+                <td>
+                    {% if item.vegeterian %}
+                        <span class="veg">🟢 Veg</span>
+                    {% else %}
+                        <span class="nonveg">🔴 Non-Veg</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    <a href="{% url 'add_to_cart' item.id username %}"
+                       class="add-cart-btn">
+                        Add To Cart
+                    </a>
+                </td>
+
+            </tr>
+
             {% endfor %}
+
         </tbody>
+
     </table>
+
+    <div class="menu-back-section">
+
+    <button onclick="history.back()" class="menu-back-btn">
+        ← Back
+    </button>
+
+</div>
+
+</div>
+
 </body>
 </html>
+
